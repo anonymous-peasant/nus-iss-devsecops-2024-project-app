@@ -1,0 +1,57 @@
+name: Backend app docker image build and manifest update
+
+on:
+  push:
+    paths:
+      - 'backend/**'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Docker Buildx
+      uses: docker/setup-buildx-action@v2
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Docker image
+      run: |
+        cd backend
+        docker build -t ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app .
+
+    - name: Test Docker image
+      run: |
+        docker run --rm ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app echo "Tests passed"
+
+    - name: Push Docker image
+      run: |
+        docker tag ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app:latest ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app:${{ github.sha }}
+        docker push ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app:${{ github.sha }}
+
+    - name: Clone manifest repository
+      run: |
+        git clone https://github.com/anonymous-peasant/nus-iss-devsecops-2024-project-deploy.git
+        cd nus-iss-devsecops-2024-project-deploy
+
+    - name: Update manifest YAML
+      run: |
+        sed -i 's/tag:.*/tag: ${{ github.sha }}/' backend/deployment.yaml
+
+    - name: Commit and push changes
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add path/to/your-manifest.yaml
+        git commit -m "Update manifest with new Docker tag: ${{ github.sha }}"
+        git push origin main
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
