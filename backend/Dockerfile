@@ -7,5 +7,4 @@ COPY . /app
 RUN mvn clean install
 RUN cp /app/target/*.jar /app/app.jar
 
-
 ENTRYPOINT ["java","-jar","/app/app.jar"]
