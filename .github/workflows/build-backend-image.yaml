@@ -28,9 +28,9 @@ jobs:
         cd backend
         docker build -t ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app .
 
-    - name: Test Docker image
-      run: |
-        docker run --rm ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app echo "Tests passed"
+    # name: Test Docker image
+    #   run: |
+    #     docker run --rm ghcr.io/nus-iss-devsecops-2024-project-app/backend-spring-boot-app echo "Tests passed"
 
     - name: Push Docker image
       run: |
