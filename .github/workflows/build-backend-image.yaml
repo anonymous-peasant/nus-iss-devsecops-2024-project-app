@@ -26,16 +26,16 @@ jobs:
     - name: Build Docker image
       run: |
         cd backend
-        docker build -t ghcr.io/${{ github.repository_owner }}/backend-spring-boot-app .
+        docker build -t ghcr.io/anonymous-peasant/backend-spring-boot-app .
 
     # name: Test Docker image
     #   run: |
-    #     docker run --rm ghcr.io/${{ github.repository_owner }}/backend-spring-boot-app echo "Tests passed"
+    #     docker run --rm ghcr.io/anonymous-peasant/backend-spring-boot-app echo "Tests passed"
 
     - name: Push Docker image
       run: |
-        docker tag ghcr.io/${{ github.repository_owner }}/backend-spring-boot-app:latest ghcr.io/${{ github.repository_owner }}/backend-spring-boot-app:${{ github.sha }}
-        docker push ghcr.io/${{ github.repository_owner }}/backend-spring-boot-app:${{ github.sha }}
+        docker tag ghcr.io/anonymous-peasant/backend-spring-boot-app:latest ghcr.io/anonymous-peasant/backend-spring-boot-app:${{ github.sha }}
+        docker push ghcr.io/anonymous-peasant/backend-spring-boot-app:${{ github.sha }}
 
     - name: Clone manifest repository
       run: |
