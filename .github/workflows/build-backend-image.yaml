@@ -52,7 +52,7 @@ jobs:
 
     - name: Commit and push changes
       run: |
-        cd ./nus-iss-devsecops-2024-project-app
+        cd ./nus-iss-devsecops-2024-project-deploy
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add path/to/your-manifest.yaml
