@@ -38,6 +38,9 @@ jobs:
         docker push ghcr.io/anonymous-peasant/backend-spring-boot-app:${{ github.sha }}
 
   update-backend-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
     - name: Clone manifest repository
       run: |
         git clone https://github.com/anonymous-peasant/nus-iss-devsecops-2024-project-deploy.git
