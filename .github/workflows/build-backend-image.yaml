@@ -55,7 +55,7 @@ jobs:
         cd ./nus-iss-devsecops-2024-project-deploy
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
-        git add ./nus-iss-devsecops-2024-project-deploy/backend/deployment.yaml
+        git add ./backend/deployment.yaml
         git commit -m "Update manifest with new Docker tag: ${{ github.sha }}"
         git push origin main
       env:
